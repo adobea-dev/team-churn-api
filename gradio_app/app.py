@@ -22,7 +22,7 @@ FIELDS = [
 
 
 def predict_churn(*values):
-    payload = {field[0]: value for field, value in zip(FIELDS, values)}
+    payload = {field[0]: value for field, value in zip(FIELDS, values, strict=True)}
 
     try:
         response = requests.post(f"{API_URL}/predictions", json=payload, timeout=10)
@@ -41,8 +41,7 @@ def predict_churn(*values):
     probability = body["churn_probability"]
     verdict = "Likely to churn" if body["prediction"] == 1 else "Likely to stay"
     details = (
-        f"Model: {body['model_version']}\n"
-        f"Request ID: {body.get('request_id', 'n/a')}"
+        f"Model: {body['model_version']}\nRequest ID: {body.get('request_id', 'n/a')}"
     )
     return (
         verdict,
