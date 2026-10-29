@@ -3,6 +3,7 @@
 Run from the repo root:
     uv run python ml_platform/training/churn/train.py
 """
+
 import json
 from pathlib import Path
 

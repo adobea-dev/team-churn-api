@@ -187,6 +187,7 @@ Create `ml_platform/training/churn/train.py`:
 Run from the repo root:
     uv run --locked python ml_platform/training/churn/train.py
 """
+
 import json
 from pathlib import Path
 
@@ -750,8 +751,7 @@ def predict(payload: ChurnRequest) -> PredictionResponse:
     request_id = str(uuid4())
 
     values = {
-        FIELD_TO_FEATURE[field]: value
-        for field, value in payload.model_dump().items()
+        FIELD_TO_FEATURE[field]: value for field, value in payload.model_dump().items()
     }
     row = pd.DataFrame(
         [[values[name] for name in feature_names]],

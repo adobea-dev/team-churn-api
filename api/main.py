@@ -9,21 +9,11 @@ from pydantic import BaseModel, Field
 APP_DIR = Path(__file__).resolve().parents[1]
 
 MODEL_PATH = (
-    APP_DIR
-    / "ml_platform"
-    / "training"
-    / "churn"
-    / "models"
-    / "churn_pipeline.joblib"
+    APP_DIR / "ml_platform" / "training" / "churn" / "models" / "churn_pipeline.joblib"
 )
 
 FEATURES_PATH = (
-    APP_DIR
-    / "ml_platform"
-    / "training"
-    / "churn"
-    / "models"
-    / "feature_names.json"
+    APP_DIR / "ml_platform" / "training" / "churn" / "models" / "feature_names.json"
 )
 
 
@@ -63,9 +53,7 @@ if not MODEL_PATH.exists():
     )
 
 if not FEATURES_PATH.exists():
-    raise RuntimeError(
-        f"Feature metadata not found at {FEATURES_PATH}."
-    )
+    raise RuntimeError(f"Feature metadata not found at {FEATURES_PATH}.")
 
 
 model = joblib.load(MODEL_PATH)
@@ -110,9 +98,7 @@ def predict(
         )
 
         prediction = int(model.predict(row)[0])
-        probability = float(
-            model.predict_proba(row)[0][1]
-        )
+        probability = float(model.predict_proba(row)[0][1])
 
         return PredictionResponse(
             prediction=prediction,
